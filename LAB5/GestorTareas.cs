@@ -37,7 +37,7 @@ namespace LAB5
 
         public void VerTareas()
         {
-            if(listaTareas.Count == 0)
+            if (listaTareas.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write(" Aun no hay tareas...");
@@ -47,19 +47,88 @@ namespace LAB5
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("\n ╔═════════════════════════════════════════════╗"); Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(" ║              V E R   T A R E A S            ║"); Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(" ║             V E R   T A R E A S             ║"); Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(" ╚═════════════════════════════════════════════╝\n"); Console.ResetColor();
-            foreach(Tarea tarea in listaTareas)
+            foreach (Tarea tarea in listaTareas)
             {
                 tarea.MostrarTareas(); Console.WriteLine();
             }
             mensaje.Continuar();
         }
+
+        public void MarcarCompletada()
+        {
+            if (listaTareas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(" Aun no hay tareas...");
+                Console.ReadKey(); Console.Clear();
+                return;
+            }
+            bool tareaEncontrada = false;
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("\n ╔═════════════════════════════════════════════╗"); Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" ║        MARCAR TAREA COMO COMPLETADA         ║"); Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(" ╚═════════════════════════════════════════════╝\n"); Console.ResetColor();
+            Console.Write(" Ingresa el número de tarea: ");
+            try
+            {
+                int numeroDeTarea = Convert.ToInt32(Console.ReadLine());
+                foreach (var tarea in listaTareas)
+                {
+                    if (numeroDeTarea == tarea.NumeroTarea && tarea.Estado == false)
+                    {
+                        tareaEncontrada = true;
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write("\n Espera");
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Thread.Sleep(1000);
+                            Console.Write(".");
+                        }
+                        tarea.Estado = true;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("\n\n ¡Tarea Completada!");
+                        mensaje.Continuar();
+                    }
+                    else if (numeroDeTarea == tarea.NumeroTarea && tarea.Estado == true)
+                    {
+                        tareaEncontrada = true;
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine(" Esta tarea ya está completada, presiona ENTER para continuar...");
+                        Console.ReadKey(); Console.ResetColor(); Console.Clear();
+                    }
+                }
+                if (!tareaEncontrada)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine(" Numero de tarea no encontrado.");
+                    mensaje.Continuar();
+                }
+            }
+            catch (FormatException)
+            {
+                mensaje.ErrorDeFormato(); mensaje.Continuar();
+            }
+            catch (OverflowException)
+            {
+                mensaje.ErrorDeEntero(); mensaje.Continuar();
+            }
+        }
         public void Salir()
         {
-            Console.Clear(); Console.WriteLine();
+            Console.Clear(); Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\n Saliendo...\n\n");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write(" █");
+                Thread.Sleep(50);
+            }
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("        █████  ██████  ██  ██████  ███████ \r\n       ██   ██ ██   ██ ██ ██    ██ ██      \r\n       ███████ ██   ██ ██ ██    ██ ███████ \r\n       ██   ██ ██   ██ ██ ██    ██      ██ \r\n       ██   ██ ██████  ██  ██████  ███████ \r\n                                    \r");
+            Console.WriteLine("\n        █████  ██████  ██  ██████  ███████ \r\n       ██   ██ ██   ██ ██ ██    ██ ██      \r\n       ███████ ██   ██ ██ ██    ██ ███████ \r\n       ██   ██ ██   ██ ██ ██    ██      ██ \r\n       ██   ██ ██████  ██  ██████  ███████ \r\n                                    \r");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(" ╔═════════════════════════════════════════════╗");
             Console.WriteLine(" ║              Ten un buen día :)             ║");

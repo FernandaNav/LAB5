@@ -20,6 +20,12 @@ namespace LAB5
             Console.WriteLine(" Error de formato. Intenta de nuevo.");
             Console.ResetColor();
         }
+        public void ErrorDeEntero()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(" El número es demasiado largo.");
+            Console.ResetColor();
+        }
         public void Default()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -35,10 +41,10 @@ namespace LAB5
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("████████  █████  ██████  ███████  █████  ███████ \r\n   ██    ██   ██ ██   ██ ██      ██   ██ ██      \r\n   ██    ███████ ██████  █████   ███████ ███████ \r\n   ██    ██   ██ ██   ██ ██      ██   ██      ██ \r\n   ██    ██   ██ ██   ██ ███████ ██   ██ ███████ \r\n                                                 \r\n                                                 ");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 25; i++)
             {
-                Console.Write("█");
-                Thread.Sleep(10);
+                Console.Write(" █");
+                Thread.Sleep(50);
             }
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\n\n        Presiona ENTER para iniciar...");

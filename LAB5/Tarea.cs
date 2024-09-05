@@ -35,7 +35,8 @@ namespace LAB5
             }
             else
             {
-                Console.WriteLine(" Estado: Pendiente");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine(" Estado: Pendiente"); Console.ResetColor();
             }
         }
     }

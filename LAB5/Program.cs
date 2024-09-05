@@ -28,6 +28,7 @@ do
                 tarea.VerTareas();
                 break;
             case 3:
+                tarea.MarcarCompletada();
                 break;
             case 4:
                 tarea.Salir();
@@ -44,7 +45,7 @@ do
     }
     catch (OverflowException)
     {
-        mensajes.ErrorDeFormato();
+        mensajes.ErrorDeEntero();
         mensajes.Continuar();
     }
 } while (opcion != 4);
