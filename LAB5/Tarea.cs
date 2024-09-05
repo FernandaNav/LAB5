@@ -8,11 +8,11 @@ namespace LAB5
 {
     public class Tarea
     {
-        static int contador = 0;
-        private int NumeroTarea {  get; set; }
-        protected string NombreTarea { get; set; }
-        protected string Descripcion {  get; set; }
-        protected bool Estado {  get; set; }
+        static int contador = 1;
+        public int NumeroTarea {  get; set; }
+        private string NombreTarea { get; set; }
+        private string Descripcion {  get; set; }
+        public bool Estado {  get; set; }
 
         public Tarea(string nombreTarea, string descripcion, bool estado)
         {
@@ -25,17 +25,17 @@ namespace LAB5
         public void MostrarTareas()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"--Tarea #{NumeroTarea}");
+            Console.WriteLine($" ═══════Tarea #{NumeroTarea}");
             Console.ResetColor();
-            Console.WriteLine($"Nombre: {NombreTarea}");
-            Console.WriteLine($"Descripción: {Descripcion}");
+            Console.WriteLine($" Nombre: {NombreTarea}");
+            Console.WriteLine($" Descripción: {Descripcion}");
             if(Estado == true)
             {
-                Console.WriteLine("Estado: Tarea Completada");
+                Console.WriteLine(" Estado: Completada");
             }
             else
             {
-                Console.WriteLine("Estado: Tarea Pendiente");
+                Console.WriteLine(" Estado: Pendiente");
             }
         }
     }
