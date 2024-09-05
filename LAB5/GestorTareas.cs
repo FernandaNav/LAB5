@@ -35,7 +35,7 @@ namespace LAB5
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write(" Aun no hay tareas...");
-                Console.ReadKey(); Console.Clear();
+                mensaje.Continuar();
                 return;
             }
             Console.Clear();
@@ -56,7 +56,7 @@ namespace LAB5
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write(" Aun no hay tareas...");
-                Console.ReadKey(); Console.Clear();
+                mensaje.Continuar();
                 return;
             }
             bool tareaEncontrada = false, validarNumero = false;
