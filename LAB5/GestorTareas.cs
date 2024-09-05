@@ -23,13 +23,7 @@ namespace LAB5
             string descripcion = Console.ReadLine();
             Tarea nuevaTarea = new Tarea(nombreTarea, descripcion, false);
             listaTareas.Add(nuevaTarea);
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("\n Espera");
-            for (int i = 0; i < 3; i++)
-            {
-                Thread.Sleep(1000); //para esperar un segundo 
-                Console.Write(".");
-            }
+            mensaje.Espera();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\n\n ¡Tarea agregada exitosamente!");
             mensaje.Continuar();
@@ -65,56 +59,59 @@ namespace LAB5
                 Console.ReadKey(); Console.Clear();
                 return;
             }
-            bool tareaEncontrada = false;
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("\n ╔═════════════════════════════════════════════╗"); Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(" ║        MARCAR TAREA COMO COMPLETADA         ║"); Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine(" ╚═════════════════════════════════════════════╝\n"); Console.ResetColor();
-            Console.Write(" Ingresa el número de tarea: ");
-            try
+            bool tareaEncontrada = false, validarNumero = false;
+            do
             {
-                int numeroDeTarea = Convert.ToInt32(Console.ReadLine());
-                foreach (var tarea in listaTareas)
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine("\n ╔═════════════════════════════════════════════╗"); Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(" ║        MARCAR TAREA COMO COMPLETADA         ║"); Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine(" ╚═════════════════════════════════════════════╝"); Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("         (Presiona ENTER para cancelar)"); Console.ResetColor();
+                Console.Write("\n Ingresa el número de tarea: ");
+                try
                 {
-                    if (numeroDeTarea == tarea.NumeroTarea && tarea.Estado == false)
+                    int numeroDeTarea = Convert.ToInt32(Console.ReadLine());
+                    foreach (var tarea in listaTareas)
                     {
-                        tareaEncontrada = true;
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write("\n Espera");
-                        for (int i = 0; i < 3; i++)
+                        if (numeroDeTarea == tarea.NumeroTarea && tarea.Estado == false)
                         {
-                            Thread.Sleep(1000);
-                            Console.Write(".");
+                            tareaEncontrada = true;
+                            mensaje.Espera();
+                            tarea.Estado = true;
+                            Console.ForegroundColor = ConsoleColor.Magenta; 
+                            Console.WriteLine("\n\n ¡Tarea Completada!");
+                            validarNumero = true;
+                            mensaje.Continuar();
                         }
-                        tarea.Estado = true;
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine("\n\n ¡Tarea Completada!");
+                        else if (numeroDeTarea == tarea.NumeroTarea && tarea.Estado == true)
+                        {
+                            tareaEncontrada = true;
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.Write(" Esta tarea ya está completada, presiona ENTER para continuar...");
+                            Console.ReadKey();
+                            validarNumero = true;
+                            Console.ResetColor(); Console.Clear();
+                        }
+                    }
+                    if (!tareaEncontrada)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine(" Numero de tarea no encontrado.");
                         mensaje.Continuar();
                     }
-                    else if (numeroDeTarea == tarea.NumeroTarea && tarea.Estado == true)
-                    {
-                        tareaEncontrada = true;
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine(" Esta tarea ya está completada, presiona ENTER para continuar...");
-                        Console.ReadKey(); Console.ResetColor(); Console.Clear();
-                    }
                 }
-                if (!tareaEncontrada)
+                catch (FormatException)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine(" Numero de tarea no encontrado.");
-                    mensaje.Continuar();
+                    validarNumero = true;
+                    mensaje.ErrorDeFormato(); mensaje.Continuar();
                 }
-            }
-            catch (FormatException)
-            {
-                mensaje.ErrorDeFormato(); mensaje.Continuar();
-            }
-            catch (OverflowException)
-            {
-                mensaje.ErrorDeEntero(); mensaje.Continuar();
-            }
+                catch (OverflowException)
+                {
+                    validarNumero = true;
+                    mensaje.ErrorDeEntero(); mensaje.Continuar();
+                }
+            } while (!validarNumero);
         }
         public void Salir()
         {

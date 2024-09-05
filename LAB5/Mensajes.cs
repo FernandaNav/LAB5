@@ -17,7 +17,7 @@ namespace LAB5
         public void ErrorDeFormato()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine(" Error de formato. Intenta de nuevo.");
+            Console.WriteLine(" Error de formato.");
             Console.ResetColor();
         }
         public void ErrorDeEntero()
@@ -49,6 +49,17 @@ namespace LAB5
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\n\n        Presiona ENTER para iniciar...");
             Console.ResetColor(); Console.ReadKey(); Console.Clear();
+        }
+
+        public void Espera()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\n Espera");
+            for (int i = 0; i < 3; i++)
+            {
+                Thread.Sleep(1000);
+                Console.Write(".");
+            }
         }
     }
 }
